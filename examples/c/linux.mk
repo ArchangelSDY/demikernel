@@ -28,7 +28,7 @@ export COMPILE_CMD = $(CC) $(CFLAGS) $@.o common.o -o $(BINDIR)/examples/c/$@.$(
 #=======================================================================================================================
 
 # Builds everything.
-all: common.o udp-push-pop udp-ping-pong tcp-push-pop tcp-ping-pong
+all: common.o udp-push-pop udp-ping-pong tcp-push-pop tcp-ping-pong http-server
 
 make-dirs:
 	mkdir -p $(BINDIR)/examples/c
@@ -49,6 +49,10 @@ tcp-push-pop: make-dirs common.o tcp-push-pop.o
 tcp-ping-pong: make-dirs common.o tcp-ping-pong.o
 	$(COMPILE_CMD)
 
+# Builds HTTP test.
+http-server: make-dirs common.o http-server.o
+	$(COMPILE_CMD)
+
 # Cleans up all build artifacts.
 clean:
 	@rm -rf $(OBJ)
@@ -56,6 +60,7 @@ clean:
 	@rm -rf $(BINDIR)/examples/c/udp-ping-pong.$(EXEC_SUFFIX)
 	@rm -rf $(BINDIR)/examples/c/tcp-push-pop.$(EXEC_SUFFIX)
 	@rm -rf $(BINDIR)/examples/c/tcp-ping-pong.$(EXEC_SUFFIX)
+	@rm -rf $(BINDIR)/examples/c/http-server.$(EXEC_SUFFIX)
 
 # Builds a C source file.
 %.o: %.c
